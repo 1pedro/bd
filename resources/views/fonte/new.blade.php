@@ -9,7 +9,8 @@
         <img src="{{asset("img/logo-ufba-compacto.png")}}">
     </div>
     <div class="page">
-        <form id="my-form">
+        <form id="fonte" method="POST" action="{{ route('store_fonte') }}">
+            @csrf
             <h1>Cadastro | <span>Fonte Primária</span></h1>
             <fieldset>
                 <div class="fieldset-wrapper">
@@ -105,13 +106,14 @@
 
                 </div>
             </fieldset>
+            <footer>
+                <button
+                    class="button"
+                    type="submit">
+                    Salvar fonte
+                </button>
+            </footer>
         </form>
-        <footer>
-            <button
-                class="button"
-                form="my-form">
-                Salvar fonte
-            </button>
-        </footer>
+
     </div>
 @endsection

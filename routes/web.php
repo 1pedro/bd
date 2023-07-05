@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FonteController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,17 +17,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-
-    Route::get('/fonte', function () {
-        return view('fonte.new');
-    });
+    Route::get('/fonte', [FonteController::class, 'index']);
+    Route::post('/fonte', [FonteController::class, 'store'])->name('store_fonte');
 
     Route::get('/fonte/edit', function () {
         return view('fonte.edit');
