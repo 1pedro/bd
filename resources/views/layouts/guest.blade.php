@@ -1,3 +1,8 @@
+@props(['body'])
+
+@php
+    $showBody = ($body ?? true);
+@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -24,9 +29,13 @@
             </div>
             <h2 class="font-bold text-2xl mt-2">Catálogo de fontes primárias em uso - Pós-Graduação UFBA</h2>
 
+            @if(!$showBody)
+
+            @else
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 {{ $slot }}
             </div>
+                @endif
         </div>
 
     </body>
