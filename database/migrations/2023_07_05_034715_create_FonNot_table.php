@@ -14,11 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('FonNot', function (Blueprint $table) {
-            $table->integer('FkNota');
-            $table->integer('FkFonte')->index('FkFonte');
+            $table->integer('FkNota')->unsigned();
+            $table->integer('FkFonte')->unsigned()->index('FkFonte');
             $table->char('FkCpf', 11);
-            $table->integer('FkEstudo')->index('FkEstudo');
-
+            $table->integer('FkEstudo')->unsigned()->index('FkEstudo');
             $table->primary(['FkNota', 'FkFonte', 'FkCpf', 'FkEstudo']);
         });
     }

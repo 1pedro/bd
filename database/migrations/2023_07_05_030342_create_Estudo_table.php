@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Estudo', function (Blueprint $table) {
-            $table->integer('IdeEstudo')->primary();
+            $table->increments('IdeEstudo');
             $table->string('NomNome', 155)->nullable();
             $table->string('DscJustificativa', 155)->nullable();
             $table->string('DscObjetivo', 155)->nullable();
-            $table->integer('fkProjeto')->index('fkProjeto');
+            $table->integer('fkProjeto')->unsigned()->index('fkProjeto');
         });
     }
 

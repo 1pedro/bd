@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::create('Variante', function (Blueprint $table) {
             $table->string('IdeVariante', 55);
             $table->string('NomVariante', 100);
-            $table->integer('FkNota')->index('FkNota');
-
+            $table->integer('FkNota')->unsigned()->index('FkNota');
             $table->primary(['NomVariante', 'FkNota']);
         });
     }

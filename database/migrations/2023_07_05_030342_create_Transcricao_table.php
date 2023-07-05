@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Transcricao', function (Blueprint $table) {
-            $table->integer('IdeTranscricao')->primary();
+            $table->increments('IdeTranscricao');
             $table->string('TxtTranscricao', 1000)->nullable();
             $table->string('NomTipo', 50)->nullable();
-            $table->integer('fkFonte')->index('fkFonte');
+            $table->integer('fkFonte')->unsigned()->index('fkFonte');
             $table->date('DatTranscricao');
         });
     }

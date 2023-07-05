@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Criterio', function (Blueprint $table) {
-            $table->integer('IdeCriterio')->primary();
+            $table->increments('IdeCriterio');
             $table->string('DscCriterio', 150)->nullable();
         });
     }

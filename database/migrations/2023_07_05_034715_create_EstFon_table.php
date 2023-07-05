@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('EstFon', function (Blueprint $table) {
-            $table->integer('fkEstudo');
-            $table->integer('fkFonte')->index('fkFonte');
+            $table->integer('fkEstudo')->unsigned();
+            $table->integer('fkFonte')->unsigned()->index('fkFonte');
             $table->date('DtEstFon')->nullable();
 
             $table->primary(['fkEstudo', 'fkFonte']);

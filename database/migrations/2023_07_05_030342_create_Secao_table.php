@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Secao', function (Blueprint $table) {
-            $table->integer('IdeSecao')->primary();
+            $table->increments('IdeSecao');
             $table->string('NomSecao', 155)->nullable();
-            $table->integer('FkInstituicaoCustodiadora')->index('FkInstituicaoCustodiadora');
+            $table->integer('FkInstituicaoCustodiadora')->unsigned()->index('FkInstituicaoCustodiadora');
         });
     }
 

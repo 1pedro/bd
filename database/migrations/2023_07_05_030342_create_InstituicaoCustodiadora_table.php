@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('InstituicaoCustodiadora', function (Blueprint $table) {
-            $table->integer('IdeInstituicaoCustodiadora')->primary();
+            $table->increments('IdeInstituicaoCustodiadora');
             $table->string('NomInstituicaoCustodiadora', 100)->nullable();
         });
     }

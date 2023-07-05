@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Area', function (Blueprint $table) {
-            $table->integer('IdeArea')->primary();
+            $table->increments('IdeArea');
             $table->char('CodArea', 8)->nullable();
             $table->string('NomNome', 55)->nullable();
         });

@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('AreEst', function (Blueprint $table) {
-            $table->integer('FkEstudo');
-            $table->integer('FkArea')->index('FkArea');
+            $table->integer('FkEstudo')->unsigned();
+            $table->integer('FkArea')->unsigned()->index('FkArea');
             $table->char('IdcAreEst', 1);
 
             $table->primary(['FkEstudo', 'FkArea']);

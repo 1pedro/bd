@@ -99,21 +99,25 @@
                     <div class="input-wrapper">
                         <label for="estudos-fonte">Lista de estudos cadastrados<span>(Segure Ctrl [ou command] para selecionar multiplas opções)</span></label>
                         <select id="estudos-fonte" multiple size="1" class="dropdown-multiplo" required>
-                            <option value="live">Preencher opções</option>
+                            @foreach($estudos as $estudo)
+                                <option value="{{$estudo->IdeEstudo}}">{{$estudo->NomNome}}</option>
+                            @endforeach
                             <!--Opções serão preenchidas pelo PHP com as informações sobre os estudos cadastrados no banco-->
                         </select>
                     </div>
 
                 </div>
             </fieldset>
-            <footer>
-                <button
-                    class="button"
-                    type="submit">
-                    Salvar fonte
-                </button>
-            </footer>
+
         </form>
+        <footer>
+            <button
+                class="button"
+                type="submit"
+            form="fonte">
+                Salvar fonte
+            </button>
+        </footer>
 
     </div>
 @endsection

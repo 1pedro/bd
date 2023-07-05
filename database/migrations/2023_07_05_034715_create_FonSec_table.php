@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('FonSec', function (Blueprint $table) {
-            $table->integer('FkFonte');
-            $table->integer('FkSecao')->index('FkSecao');
+            $table->integer('FkFonte')->unsigned();
+            $table->integer('FkSecao')->unsigned()->index('FkSecao');
             $table->string('CodCodigo', 100);
 
             $table->primary(['FkFonte', 'FkSecao']);

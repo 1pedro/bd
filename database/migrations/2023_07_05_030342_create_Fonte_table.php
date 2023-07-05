@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Fonte', function (Blueprint $table) {
-            $table->integer('IdeFonte')->primary();
+            $table->increments('IdeFonte');
             $table->string('NomTitulo', 155)->nullable();
             $table->string('NomInstituicaoProdutora', 155)->nullable();
             $table->string('IdcEspecie', 100)->nullable();

@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('FonPub', function (Blueprint $table) {
-            $table->integer('FkPublicacao');
-            $table->integer('FkFonte')->index('FkFonte');
+            $table->integer('FkPublicacao')->unsigned();
+            $table->integer('FkFonte')->unsigned()->index('FkFonte');
             $table->char('FkCpf', 11);
-            $table->integer('FkEstudo')->index('FkEstudo');
+            $table->integer('FkEstudo')->unsigned()->index('FkEstudo');
 
             $table->primary(['FkPublicacao', 'FkFonte', 'FkCpf', 'FkEstudo']);
         });

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Projeto', function (Blueprint $table) {
-            $table->integer('IdeProjeto')->primary();
+            $table->increments('IdeProjeto');
             $table->string('NomNome', 155)->nullable();
             $table->string('TxtDescricao')->nullable();
             $table->char('fkCpf', 11)->index('fkCpf');

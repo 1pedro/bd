@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('FonTra', function (Blueprint $table) {
-            $table->integer('FkTranscricao');
-            $table->integer('FkFonte')->index('FkFonte');
+            $table->integer('FkTranscricao')->unsigned();
+            $table->integer('FkFonte')->unsigned()->index('FkFonte');
             $table->char('fkCpf', 11);
-            $table->integer('fkEstudo')->index('fkEstudo');
+            $table->integer('fkEstudo')->unsigned()->index('fkEstudo');
 
             $table->primary(['FkTranscricao', 'FkFonte', 'fkCpf', 'fkEstudo']);
         });

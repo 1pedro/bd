@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('TraCri', function (Blueprint $table) {
-            $table->integer('FkCriterio');
-            $table->integer('FkTranscricao')->index('FkTranscricao');
+            $table->integer('FkCriterio')->unsigned();
+            $table->integer('FkTranscricao')->unsigned()->index('FkTranscricao');
 
             $table->primary(['FkCriterio', 'FkTranscricao']);
         });
