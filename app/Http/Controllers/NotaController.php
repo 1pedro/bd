@@ -44,7 +44,7 @@ values (?,  ?, ?, ?)', [$NomEntrada, $NomEntradaPadrao, $TxtAscepcao, $DscClassi
 
         DB::update('update Nota set  NomEntrada = ?, NomEntradaPadrao = ?, TxtAscepcao = ?, DscClassificacao = ? WHERE IdeNota = ?', [$NomEntrada, $NomEntradaPadrao, $TxtAscepcao, $DscClassificacao, $id]);
 
-        $updated = $nota = DB::select('select *  from Nota where IdeNota = ?', [$id]);
+        $updated  = DB::select('select *  from Nota where IdeNota = ?', [$id]);
         return view('nota.edit', ['nota' => $updated[0]]);
     }
 }

@@ -1,112 +1,108 @@
 @extends('layouts.custom')
 
-@section('title', 'Editar Fonte')
+@section('title', 'Cadastro Fonte')
 @section('style')
-    @vite('resources/css/edit.css')
+    @vite('resources/css/new.css')
 @endsection
 @section('content')
     <div id="div-logo">
         <img src="{{asset("img/logo-ufba-compacto.png")}}">
     </div>
     <div class="page">
-        <form id="my-form">
-            <h1>Edição | <span>Fonte Primária</span></h1>
-            <!--O PHP deve preencher os campos e o reenvio do formulário com novos valores altera o que está salvo no banco-->
-            <fieldset>
-                <div class="fieldset-wrapper">
 
-                    <div class="input-wrapper">
-                        <label for="NomTitulo">Titulo</label>
-                        <div class="fixed-value">
-                            <!--Item não editável, apenas preencher com informações do banco--></div>
-                    </div>
+        {!! Form::open(['url' => route('store_fonte'), 'method'=> 'POST']) !!}
+        <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+        <div style="display:flex;justify-content: space-between">
+            <h1 style="display: inline">Editar | <span>Fonte Primária</span></h1>
 
-                    <div class="input-wrapper">
-                        <label for="CodCodigo">Código</label>
-                        <div class="fixed-value">
-                            <!--Item não editável, apenas preencher com informações do banco--></div>
-                    </div>
+            <a href="{{ route('dashboard') }}" class="font-bold text-white p-2 bg-green-500 inline-block rounded-md"> Voltar</a>
+        </div>
+        <fieldset>
+            <div class="fieldset-wrapper">
 
-                    <div class="input-wrapper">
-                        <label for="DscDescricao">Descrição</label>
-                        <textarea id="DscDescricao" required maxlength="150"></textarea>
-                    </div>
+                <div class="input-wrapper">
+                    <label for="NomTitulo">Titulo</label>
+                    {{ Form::text('NomTitulo', $fonte->NomTitulo) }}
+                </div>
 
-                    <div class="input-wrapper">
-                        <label for="IdeEspecie">Especie</label>
-                        <input
-                            type="text"
-                            id="IdeEspecie"
-                            required
-                            maxlength="100"/>
-                    </div>
+                <div class="input-wrapper">
+                    <label for="CodCodigo">Código</label>
 
-                    <div class="input-wrapper">
-                        <label for="NomInstituicaoCustodiadora">Instituição Custodiadora</label>
-                        <input
-                            type="text"
-                            id="NomInstituicaoCustodiadora"
-                            required
-                            maxlength="100"/>
-                    </div>
+                    {{ Form::text('CodCodigo',$cod, ['max' => 100, 'required' => true]) }}
+                </div>
 
-                    <div class="input-wrapper">
-                        <label for="NomInstituicaoProdutora">Instituição Produtora</label>
-                        <input
-                            type="text"
-                            id="NomInstituicaoProdutora"
-                            required
-                            maxlength="155"/>
-                    </div>
+                <div class="input-wrapper">
+                    <label for="DscDescricao">Descrição</label>
 
-                    <div class="input-wrapper">
-                        <label for="NomSecao">Seção/Coleção</label>
-                        <input
-                            type="text"
-                            id="NomSecao"
-                            required
-                            maxlength="155"/>
-                    </div>
-
-                    <div class="input-wrapper">
-                        <label for="DatFonte">Datação de conteúdo</label>
-                        <input type="date" id="DatFonte" required class="input-data"/>
-                    </div>
-
-                    <div class="input-wrapper">
-                        <label for="DatProducao">Datação de produção</label>
-                        <input type="date" id="DatProducao" required class="input-data"/>
-                    </div>
-
-                    <div class="input-wrapper">
-                        <label for="link">Link<span>(comece com https://)</span></label>
-                        <input type="url" id="link" maxlength="155"/>
-                    </div>
-
+                    {{ Form::text('DscDescricao', $fonte->DscDescricao, ['max' => 150, 'required' => true]) }}
 
                 </div>
-            </fieldset>
-            <fieldset>
-                <div class="fieldset-wrapper">
-                    <legend>Estudos que usam essa fonte primária</legend>
 
-                    <div class="input-wrapper">
-                        <label for="estudos-fonte">Lista de estudos cadastrados<span>(Segure Ctrl [ou command] para selecionar multiplas opções)</span></label>
-                        <select id="estudos-fonte" multiple size="1" class="dropdown-multiplo" required>
-                            <option value="live">Preencher opções</option>
-                            <!--Opções serão preenchidas pelo PHP com as informações sobre os estudos cadastrados no banco-->
-                        </select>
-                    </div>
+                <div class="input-wrapper">
+                    <label for="IdcEspecie">Especie</label>
+
+                    {{ Form::text('IdcEspecie', $fonte->IdcEspecie, ['maxlength' => 4, 'required' => true]) }}
 
                 </div>
-            </fieldset>
+
+                <div class="input-wrapper">
+                    <label for="NomInstituicaoProdutora">Instituição Produtora</label>
+
+                    {{ Form::text('NomInstituicaoProdutora', $fonte->NomInstituicaoProdutora, ['max' => 155, 'required' => true]) }}
+
+                </div>
+
+
+                <div class="input-wrapper">
+                    <label for="NomSecao">Seção/Coleção</label>
+
+                    {{ Form::select('fonte-secao', $secoes, null, ['class' => 'dropdown-single']) }}
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="DatDataCronologica">Datação de conteúdo</label>
+
+                    {{ Form::date('DatDataCronologica', $fonte->DatDataCronologica, ['required' => true, 'class'=> 'input-data']) }}
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="DatDataProducao">Datação de produção</label>
+                    {{ Form::date('DatDataProducao', $fonte->DatDataProducao, ['required' => true, 'class'=> 'input-data']) }}
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="link">Link<span>(comece com https://)</span></label>
+
+                    {{ Form::url('link', $fonte->link, ['max' => 155,'required' => true]) }}
+                </div>
+
+            </div>
+        </fieldset>
+        <fieldset>
+            <div class="fieldset-wrapper">
+                <legend>Estudos que usam essa fonte primária</legend>
+
+                <div class="input-wrapper">
+                    <label for="estudos-fonte">Lista de estudos cadastrados<span>(Segure Ctrl [ou command] para selecionar multiplas opções)</span></label>
+
+                    {{ Form::select('estudos-fonte', $estudos, null, ['class' => 'dropdown-multiplo', 'multiple' => true])  }}
+                </div>
+
+            </div>
+        </fieldset>
+
+        {!! Form::close() !!}
         </form>
         <footer>
+
             <button
                 class="button"
-                form="my-form">
+                type="submit"
+                onclick="document.forms[0].requestSubmit()"
+                form="fonte">
                 Salvar fonte
             </button>
         </footer>
+
     </div>
 @endsection

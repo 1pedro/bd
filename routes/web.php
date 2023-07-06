@@ -1,6 +1,7 @@
 <?php
 
 use App\Helpers;
+use App\Http\Controllers\AreaController;
 use App\Http\Controllers\FonteController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\ProfileController;
@@ -47,12 +48,9 @@ Route::get('/dashboard', function () {
 
 Route::post('/fonte', [FonteController::class, 'store'])->name('store_fonte');
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/fonte', [FonteController::class, 'index'])->name('new_fonte')
-  ;
+    Route::get('/fonte', [FonteController::class, 'index'])->name('new_fonte');
 
-    Route::get('/fonte/edit', function () {
-        return view('fonte.edit');
-    });
+    Route::get('/fonte/{id}/edit', [FonteController::class, 'edit'])->name("edit_fonte");
 
     Route::get('/publicacao', function () {
 
@@ -84,6 +82,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('transcricao.new');
     });
     Route::post('/transcricao', [TranscricaoController::class, 'store'])->name('store_transcricao');
+
+    Route::get('/area', [ AreaController::class, 'index'])->name('new_area');
 });
 
 Route::middleware('auth')->group(function () {

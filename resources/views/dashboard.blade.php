@@ -68,7 +68,7 @@
                                     <td class="whitespace-nowrap px-6 py-4">{{ $fonte->NomTitulo }}</td>
                                     <td class="whitespace-nowrap px-6 py-4">{{ $fonte->NomInstituicaoProdutora }}</td>
                                     <td>
-                                        <a class="bg-blue-400 p-1 rounded-md text-white font-bold" href="">Atualizar</a>
+                                        <a class="bg-blue-400 p-1 rounded-md text-white font-bold" href="{{route('edit_fonte', ['id' => $fonte->IdeFonte])}}">Atualizar</a>
                                         <button onclick="confirm('Tem certeza que deseja excluir?') && deleteEntity('{{$fonte->IdeFonte}}', 'Fonte')" class="bg-red-400 p-1 rounded-md text-white font-bold">Excluir</button>
                                     </td>
                                 </tr>
@@ -126,7 +126,7 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5">
                     <div>
                         <div class="flex justify-between">
-                            <h2 class="text-gray-700 text-2xl font-bold">Areas</h2> <a href="{{ route('new_publicacao') }}" class="font-bold text-white p-2 bg-green-500 inline-block rounded-md"> + Criar Area</a>
+                            <h2 class="text-gray-700 text-2xl font-bold">Areas</h2> <a href="{{ route('new_area') }}" class="font-bold text-white p-2 bg-green-500 inline-block rounded-md"> + Criar Area</a>
                         </div>
 
                         <table class="table-auto">

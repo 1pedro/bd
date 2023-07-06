@@ -39,9 +39,9 @@
                     </div>
 
                     <div class="input-wrapper">
-                        <label for="IdeEspecie">Especie</label>
+                        <label for="IdcEspecie">Especie</label>
 
-                        {{ Form::text('IdeEspecie', null, ['maxlength' => 4, 'required' => true]) }}
+                        {{ Form::text('IdcEspecie', null, ['maxlength' => 4, 'required' => true]) }}
 
                     </div>
 
@@ -56,7 +56,7 @@
                     <div class="input-wrapper">
                         <label for="NomSecao">Seção/Coleção</label>
 
-                        {{ Form::select('NomSecao', $estudos, null, ['class' => 'dropdown-single']) }}
+                        {{ Form::select('fonte-secao', $secoes, null, ['class' => 'dropdown-single']) }}
                     </div>
 
                     <div class="input-wrapper">
