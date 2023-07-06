@@ -9,10 +9,10 @@
     </div>
     <div class="page">
 
-        {!! Form::open(['url' => route('store_nota'), 'method'=> 'POST']) !!}
+        {!! Form::open(['url' => route('update_nota', ['id' => $nota->IdeNota]), 'method'=> 'PUT']) !!}
 
         <div style="display:flex;justify-content: space-between">
-            <h1 style="display: inline">Cadastro | <span>Nota</span></h1>
+            <h1 style="display: inline">Editar | <span>Nota</span></h1>
 
             <a href="{{ route('dashboard') }}" class="font-bold text-white p-2 bg-green-500 inline-block rounded-md"> Voltar</a>
         </div>
@@ -22,26 +22,26 @@
                     <div class="input-wrapper">
                         <label for="NomEntradaPadrao">Entrada</label>
 
-                        {{ Form::text('NomEntradaPadrao') }}
+                        {{ Form::text('NomEntradaPadrao', $nota->NomEntradaPadrao) }}
                     </div>
 
                     <div class="input-wrapper">
                         <label for="TxtAscepcao">Descrição</label>
 
-                        {{ Form::text('TxtAscepcao', null, ['max' => 255]) }}
+                        {{ Form::text('TxtAscepcao', $nota->TxtAscepcao, ['max' => 255]) }}
 
                     </div>
 
                     <div class="input-wrapper">
-                        <label for="IdcClassificacao">Classificação</label>
+                        <label for="DscClassificacao">Classificação</label>
 
-                        {{ Form::text('DscClassificacao', null, ['maxlength' => 4, 'class'=> 'input-classificacao']) }}
+                        {{ Form::text('DscClassificacao', $nota->DscClassificacao, ['maxlength' => 4, 'class'=> 'input-classificacao']) }}
                     </div>
 
 {{--                    <div class="input-wrapper">--}}
 {{--                        <label for="DatNota">Data de produção</label>--}}
 
-{{--                        {{ Form::date('DatNota', null, ['class'=> 'input-data', 'required'=> true]) }}--}}
+{{--                        {{ Form::date('DatNota', $nota->DatNota, ['class'=> 'input-data', 'required'=> true]) }}--}}
 {{--                    </div>--}}
 
                 </div>

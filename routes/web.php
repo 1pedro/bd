@@ -1,7 +1,12 @@
 <?php
 
+use App\Helpers;
 use App\Http\Controllers\FonteController;
+use App\Http\Controllers\NotaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicacaoController;
+use App\Http\Controllers\TranscricaoController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,29 +20,70 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $fontes = DB::select('select *  from Fonte');
+    $estudos = DB::select('select *  from Estudo');
+    $publicacoes = DB::select('select *  from Publicacao');
+    $pesquisadores = DB::select('select *  from Pesquisador');
+    $areas = DB::select('select *  from Area');
+    $notas = DB::select('select *  from Nota');
+    $projetos = DB::select('select *  from Projeto');
+    $transcricoes = DB::select('select *  from Transcricao');
+
+
+    return view('dashboard', ['estudos' => $estudos,
+        'publicacoes' => $publicacoes,
+        'pesquisadores' => $pesquisadores,
+        'areas' => $areas,
+        'notas' => $notas,
+        'projetos' => $projetos,
+        'fontes' => $fontes]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::post('/fonte', [FonteController::class, 'store'])->name('store_fonte');
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/fonte', [FonteController::class, 'index']);
-    Route::post('/fonte', [FonteController::class, 'store'])->name('store_fonte');
+    Route::get('/fonte', [FonteController::class, 'index'])->name('new_fonte')
+  ;
 
     Route::get('/fonte/edit', function () {
         return view('fonte.edit');
     });
 
     Route::get('/publicacao', function () {
-        return view('publicacao.new');
-    });
+
+        $rawEstudos = DB::select('select *  from Estudo');
+        $rawFontes = DB::select('select *  from Fonte');
+        $rawPesquisadores = DB::select('select *  from Pesquisador');
+
+        $estudos = Helpers::toSelect($rawEstudos,'IdeEstudo', 'NomNome');
+        $fontes = Helpers::toSelect($rawFontes,'IdeFonte', 'NomTitulo' );
+        $pesquisadores = Helpers::toSelect($rawPesquisadores, 'IdeCpf', 'NomNome');
+
+        return view('publicacao.new', ['estudos' => $estudos, 'fontes' => $fontes, 'pesquisadores' => $pesquisadores]);
+    })->name('new_publicacao');
+    Route::post('/publicacao', [PublicacaoController::class, 'store'])->name('store_publicacao');
+
 
     Route::get('/nota', function () {
         return view('nota.new');
+    })->name('new_nota');
+
+    Route::get('/nota/{id}/edit', [NotaController::class, 'edit'])->name('edit_nota');
+
+    Route::put('/nota/{id}/edit',[NotaController::class, 'update'])->name('update_nota');
+
+    Route::post('/nota', [NotaController::class, 'store'])->name('store_nota');
+
+
+    Route::get('/transcricao', function () {
+        return view('transcricao.new');
     });
+    Route::post('/transcricao', [TranscricaoController::class, 'store'])->name('store_transcricao');
 });
 
 Route::middleware('auth')->group(function () {

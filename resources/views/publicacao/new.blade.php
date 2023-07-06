@@ -9,54 +9,53 @@
         <img src="{{asset("img/logo-ufba-compacto.png")}}">
     </div>
     <div class="page">
-        <form id="my-form">
-            <h1>Cadastro | <span>Publicação</span></h1>
+        {!! Form::open(['url' => route('store_publicacao'), 'method'=> 'POST']) !!}
+
+        <div style="display:flex;justify-content: space-between">
+            <h1 style="display: inline">Cadastro | <span>Publicação</span></h1>
+
+            <a href="{{ route('dashboard') }}" class="font-bold text-white p-2 bg-green-500 inline-block rounded-md"> Voltar</a>
+        </div>
             <fieldset>
                 <div class="fieldset-wrapper">
 
                     <div class="input-wrapper">
                         <label for="NomTitulo">Titulo</label>
-                        <input
-                            type="text"
-                            id="NomTitulo"
-                            required
-                            maxlength="155"/>
+
+                        {{ Form::text('NomTitulo', null, ['maxlength' => 155, 'required' => true]) }}
                     </div>
 
                     <div class="input-wrapper">
                         <label for="NomReferencia">Referência</label>
-                        <input
-                            type="text"
-                            id="NomReferencia"
-                            required
-                            maxlength="150"/>
+
+                        {{ Form::text('NomReferencia', null, ['maxlength' => 150, 'required' => true]) }}
+
                     </div>
 
                     <div class="input-wrapper">
                         <label for="IdcVeiculo">Veiculo</label>
-                        <input
-                            type="text"
-                            id="IdcVeiculo"
-                            required
-                            maxlength="50"/>
+                        {{ Form::text('IdcVeiculo', null, ['maxlength' => 4, 'required' => true]) }}
                     </div>
 
                     <div class="input-wrapper">
                         <label for="DatPublicacao">Data de publicação</label>
-                        <input type="date" id="DatPublicacao" required class="input-data"/>
+
+                        {{ Form::date('DatPublicacao', null, ['required' => true, 'class' => 'input-data']) }}
+
                     </div>
 
                     <div class="input-wrapper">
                         <label for="NomLink">Link <span>(Apenas caso seja uma Publicação online)</span></label>
-                        <input type="url" id="NomLink" maxlength="150"/>
+
+                        {{ Form::url('NomLink', null, ['maxlength' => 150]) }}
+
                     </div>
 
                     <div class="input-wrapper">
                         <label for="CodDoi">Doi: <span>(Apenas caso seja uma Publicação online)</span></label>
-                        <input
-                            type="text"
-                            id="CodDoi"
-                            maxlength="55"/>
+
+                        {{ Form::url('CodDoi', null, ['maxlength' => 55]) }}
+
                     </div>
 
 
@@ -68,10 +67,9 @@
 
                     <div class="input-wrapper">
                         <label for="publicacao-pesquisador">Lista de pesquisadores cadastrados<span>(Segure Ctrl [ou command] para selecionar multiplas opções)</span></label>
-                        <select id="publicacao-pesquisador" multiple size="1" class="dropdown-multiplo" required>
-                            <option value="live">Preencher opções</option>
-                            <!--Opções serão preenchidas pelo PHP com as informações sobre os estudos cadastrados no banco-->
-                        </select>
+
+                        {{ Form::select('publicacao-pesquisador', $pesquisadores, null, ['class' => 'dropdown-multiplo', 'required' => true, 'multiple' => true]) }}
+
                     </div>
 
                 </div>
@@ -82,10 +80,7 @@
 
                     <div class="input-wrapper">
                         <label for="publicacao-fonte">Lista de fontes primárias cadastradas<span>(Segure Ctrl [ou command] para selecionar multiplas opções)</span></label>
-                        <select id="publicacao-fonte" multiple size="1" class="dropdown-multiplo" required>
-                            <option value="live">Preencher opções</option>
-                            <!--Opções serão preenchidas pelo PHP com as informações sobre os estudos cadastrados no banco-->
-                        </select>
+                        {{ Form::select('Publicacao-fonte', $fontes, null, ['class' => 'dropdown-multiplo', 'required' => true, 'multiple' => true]) }}
                     </div>
 
                 </div>
@@ -96,20 +91,19 @@
 
                     <div class="input-wrapper">
                         <label for="publicacao-estudo">Lista de estudos cadastrados</label>
-                        <select id="publicacao-estudo" class="dropdown-single">
-                            <option value="live">Preencher opções</option>
-
-                        </select>
+                        {{ Form::select('Publicacao-estudo', $estudos, null, ['class' => 'dropdown-single', 'required' => true, 'placeholder' => 'Selecione um Estudo']) }}
                     </div>
 
                 </div>
             </fieldset>
-        </form>
+        {{ Form::close() }}
         <footer>
             <button
                 class="button"
-                form="my-form">
-                Salvar publicação
+                type="submit"
+                onclick="document.forms[0].requestSubmit()"
+                form="fonte">
+                Salvar Nota
             </button>
         </footer>
     </div>

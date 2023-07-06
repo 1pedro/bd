@@ -9,86 +9,72 @@
         <img src="{{asset("img/logo-ufba-compacto.png")}}">
     </div>
     <div class="page">
-        <form id="fonte" method="POST" action="{{ route('store_fonte') }}">
-            @csrf
-            <h1>Cadastro | <span>Fonte Primária</span></h1>
+
+            {!! Form::open(['url' => route('store_fonte'), 'method'=> 'POST']) !!}
+            <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+            <div style="display:flex;justify-content: space-between">
+                <h1 style="display: inline">Cadastro | <span>Fonte Primária</span></h1>
+
+                <a href="{{ route('dashboard') }}" class="font-bold text-white p-2 bg-green-500 inline-block rounded-md"> Voltar</a>
+            </div>
             <fieldset>
                 <div class="fieldset-wrapper">
 
                     <div class="input-wrapper">
                         <label for="NomTitulo">Titulo</label>
-                        <input
-                            type="text"
-                            id="NomTitulo"
-                            required
-                            maxlength="155"/>
+                        {{ Form::text('NomTitulo') }}
                     </div>
 
                     <div class="input-wrapper">
                         <label for="CodCodigo">Código</label>
-                        <input
-                            type="text"
-                            id="CodCodigo"
-                            required
-                            maxlength="100"/>
+
+                        {{ Form::text('CodCodigo', null, ['max' => 100, 'required' => true]) }}
                     </div>
 
                     <div class="input-wrapper">
                         <label for="DscDescricao">Descrição</label>
-                        <textarea id="DscDescricao" required maxlength="150"></textarea>
+
+                        {{ Form::text('DscDescricao', null, ['max' => 150, 'required' => true]) }}
+
                     </div>
 
                     <div class="input-wrapper">
                         <label for="IdeEspecie">Especie</label>
-                        <input
-                            type="text"
-                            id="IdeEspecie"
-                            required
-                            maxlength="100"/>
+
+                        {{ Form::text('IdeEspecie', null, ['maxlength' => 4, 'required' => true]) }}
+
                     </div>
 
                     <div class="input-wrapper">
                         <label for="NomInstituicaoProdutora">Instituição Produtora</label>
-                        <input
-                            type="text"
-                            id="NomInstituicaoProdutora"
-                            required
-                            maxlength="155"/>
+
+                        {{ Form::text('NomInstituicaoProdutora', null, ['max' => 155, 'required' => true]) }}
+
                     </div>
 
-                    <div class="input-wrapper">
-                        <label for="NomInstituicaoCustodiadora">Instituição Custodiadora</label>
-                        <input
-                            type="text"
-                            id="NomInstituicaoCustodiadora"
-                            required
-                            maxlength="100"/>
-                    </div>
 
                     <div class="input-wrapper">
                         <label for="NomSecao">Seção/Coleção</label>
-                        <input
-                            type="text"
-                            id="NomSecao"
-                            required
-                            maxlength="155"/>
+
+                        {{ Form::select('NomSecao', $estudos, null, ['class' => 'dropdown-single']) }}
                     </div>
 
                     <div class="input-wrapper">
-                        <label for="DatFonte">Datação de conteúdo</label>
-                        <input type="date" id="DatFonte" required class="input-data"/>
+                        <label for="DatDataCronologica">Datação de conteúdo</label>
+
+                        {{ Form::date('DatDataCronologica', null, ['required' => true, 'class'=> 'input-data']) }}
                     </div>
 
                     <div class="input-wrapper">
-                        <label for="DatProducao">Datação de produção</label>
-                        <input type="date" id="DatProducao" required class="input-data"/>
+                        <label for="DatDataProducao">Datação de produção</label>
+                        {{ Form::date('DatDataProducao', null, ['required' => true, 'class'=> 'input-data']) }}
                     </div>
 
                     <div class="input-wrapper">
                         <label for="link">Link<span>(comece com https://)</span></label>
-                        <input type="url" id="link" maxlength="155"/>
-                    </div>
 
+                        {{ Form::url('link', null, ['max' => 155,'required' => true]) }}
+                    </div>
 
                 </div>
             </fieldset>
@@ -98,23 +84,22 @@
 
                     <div class="input-wrapper">
                         <label for="estudos-fonte">Lista de estudos cadastrados<span>(Segure Ctrl [ou command] para selecionar multiplas opções)</span></label>
-                        <select id="estudos-fonte" multiple size="1" class="dropdown-multiplo" required>
-                            @foreach($estudos as $estudo)
-                                <option value="{{$estudo->IdeEstudo}}">{{$estudo->NomNome}}</option>
-                            @endforeach
-                            <!--Opções serão preenchidas pelo PHP com as informações sobre os estudos cadastrados no banco-->
-                        </select>
+
+                        {{ Form::select('estudos-fonte', $estudos, null, ['class' => 'dropdown-multiplo', 'multiple' => true])  }}
                     </div>
 
                 </div>
             </fieldset>
 
+        {!! Form::close() !!}
         </form>
         <footer>
+
             <button
                 class="button"
                 type="submit"
-            form="fonte">
+                onclick="document.forms[0].requestSubmit()"
+                form="fonte">
                 Salvar fonte
             </button>
         </footer>

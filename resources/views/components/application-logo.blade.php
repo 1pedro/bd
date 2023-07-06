@@ -1,8 +1,8 @@
 @props(['width'])
 
 @php
-    $classes = ($width ?? false)
-                ? 'w-[30px] h-auto'
-                : 'w-[100px] h-auto';
+
+$width = isset($width);
 @endphp
-<img src="{{asset("img/novo3.svg")}}"  alt=""  {{ $attributes->merge(['class' => $classes]) }}>
+
+<img src="{{asset("img/novo3.svg")}}"  alt=""  style=" @if($width) width: 30px; @else width: 100px; @endif">

@@ -81,7 +81,7 @@
         <footer>
             <button
                 class="button"
-                form="my-form">
+                onclick="document.forms[0].requestSubmit()">
                 Salvar transcrição
             </button>
         </footer>
